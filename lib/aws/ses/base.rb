@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'tempfile'
+
 module AWS #:nodoc:
   # AWS::SES is a Ruby library for Amazon's Simple Email Service's REST API (http://aws.amazon.com/ses).
   # 
@@ -32,21 +36,14 @@ module AWS #:nodoc:
   #
 
   module SES
-    
     API_VERSION = '2010-12-01'
-
     DEFAULT_REGION = 'us-east-1'
-
     SERVICE = 'ses'
-
     DEFAULT_HOST = 'email.us-east-1.amazonaws.com'
-
     DEFAULT_MESSAGE_ID_DOMAIN = 'email.amazonses.com'
-    
     UNSIGNED_HEADERS = ['content-length', 'user-agent', 'authorization']
-
     USER_AGENT = 'github-aws-ses-ruby-gem'
-    
+
     # Encodes the given string with the secret_access_key by taking the
     # hmac-sha1 sum, and then base64 encoding it.  Optionally, it will also
     # url encode the result of that to protect the string if it's going to
@@ -86,7 +83,6 @@ module AWS #:nodoc:
     class Base   
       include SendEmail
       include Info
-      
       attr_reader :use_ssl, :server, :proxy_server, :port, :message_id_domain, :signature_version, :region, :datetime, :date, :headers, :query, :action
       attr_accessor :settings
 
@@ -110,7 +106,7 @@ module AWS #:nodoc:
                     :user_agent => USER_AGENT,
                     :proxy_server => nil,
                     :region => DEFAULT_REGION
-                    }.merge(options)
+                  }.merge(options)
 
         @signature_version = options[:signature_version] || 2
         @server = options[:server]
