@@ -1,21 +1,20 @@
-source "http://rubygems.org"
-# Add dependencies required to use your gem here.
-# Example:
-#   gem "activesupport", ">= 2.3.5"
+source "https://rubygems.org"
 
-# Add dependencies to develop your gem here.
-# Include everything needed to run rake, tests, features, etc.
+# Runtime dependencies
+gem 'base64', '~> 0.2.0' # Required for Ruby >= 3.4
+gem 'builder', '~> 3.2'
+gem 'mail', '~> 2.8'
+gem 'mime-types', '~> 3.5'
+gem 'xml-simple', '~> 1.1'
+
 group :development do
-  gem "bundler", ">= 1.17"
-  gem 'flexmock', '~> 0.8.11'
-  gem "jeweler"
-  gem "rake"
-  gem "shoulda-context", ">= 0"
-  gem 'test-unit'
-  gem 'timecop'
-end
+  gem 'bundler', '~> 2.4'
+  gem 'rake', '~> 13.0'
+  gem 'gem-release', '~> 2.2'
 
-gem 'builder'
-gem 'mail', '> 2.2.5'
-gem 'mime-types'
-gem 'xml-simple'
+  # Testing dependencies
+  gem 'flexmock', '~> 2.3'
+  gem 'shoulda-context', '~> 2.0'
+  gem 'test-unit', '~> 3.5'
+  gem 'timecop', '~> 0.9'
+end
