@@ -11,6 +11,9 @@ module Kernel
   def expirable_memoize(reload = false, storage = nil)
     current_method = RUBY_VERSION > '1.8.7' ? __called_from__ : __method__(1)
     storage = "@#{storage || current_method}"
+
+    return yield unless storage.match?(/^@[\w]+$/)
+
     if reload 
       instance_variable_set(storage, nil)
     else
@@ -18,6 +21,7 @@ module Kernel
         return cache
       end
     end
+
     instance_variable_set(storage, yield)
   end
 end
