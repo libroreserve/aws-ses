@@ -23,7 +23,7 @@ module AWS
       end
 
       # List all verified e-mail addresses
-      # 
+      #
       # Usage:
       # ses.addresses.list.result
       # =>
@@ -31,45 +31,37 @@ module AWS
       def list
         @ses.request('ListVerifiedEmailAddresses')
       end
-      
+
       def verify(email)
         @ses.request('VerifyEmailAddress',
-          'EmailAddress' => email
-        )
+                     'EmailAddress' => email)
       end
-      
+
       def delete(email)
         @ses.request('DeleteVerifiedEmailAddress',
-          'EmailAddress' => email
-        )
+                     'EmailAddress' => email)
       end
     end
-    
+
     class ListVerifiedEmailAddressesResponse < AWS::SES::Response
       def result
-        if members = parsed['ListVerifiedEmailAddressesResult']['VerifiedEmailAddresses']
-          [members['member']].flatten
-        else
-          []
-        end
+        @result ||= Array(parsed.dig('ListVerifiedEmailAddressesResult', 'VerifiedEmailAddresses', 'member'))
       end
-      memoized :result
     end
-    
+
     class VerifyEmailAddressResponse < AWS::SES::Response
     end
-    
+
     class DeleteVerifiedEmailAddressResponse < AWS::SES::Response
       def result
         success?
       end
     end
-    
+
     class Base
       def addresses
         @addresses ||= Addresses.new(self)
       end
     end
-    
   end
 end
